@@ -1,0 +1,31 @@
+{
+    "name": "gitbook-plugin-theme-official",
+    "description": "Official theme for GitBook.com documentations",
+    "version": "0.0.0",
+    "engines": {
+        "gitbook": ">=3.0.0"
+    },
+    "devDependencies": {
+        "less": "2.6.0",
+        "less-plugin-clean-css": "1.5.1",
+        "gitbook-styleguide": "5.9.2"
+    },
+    "scripts": {
+        "prepublish": "./src/build.sh"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/GitbookIO/theme-official.git"
+    },
+    "author": "FriendCode Inc. <contact@gitbook.com>",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/GitbookIO/theme-official/issues"
+    },
+    "contributors": [
+        {
+            "name": "Samy Pessé",
+            "email": "samy@gitbook.com"
+        }
+    ]
+}

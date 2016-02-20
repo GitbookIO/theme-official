@@ -1,0 +1,78 @@
+{% extends "website/layout.html" %}
+
+{% block title %}{{ page.title }} · {{ super() }}{% endblock %}
+
+{% block head %}
+    {{ super() }}
+
+    {% if page.next and page.next.path %}
+    <link rel="next" href="{{ page.next.path|resolveFile }}" />
+    {% endif %}
+    {% if page.previous and page.previous.path %}
+    <link rel="prev" href="{{ page.previous.path|resolveFile }}" />
+    {% endif %}
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ "style.css"|resolveAsset }}">
+    {% for resource in plugins.resources.css %}
+        {% if resource.url %}
+        <link rel="stylesheet" href="{{ resource.url }}">
+        {% else %}
+        <link rel="stylesheet" href="{{ resource.path|resolveAsset }}">
+        {% endif %}
+    {% endfor %}
+    {% for type, style in styles %}
+        <link rel="stylesheet" href="{{ style|resolveFile }}">
+    {% endfor %}
+{% endblock %}
+
+{% block body %}
+<div class="gb-page-wrapper">
+    <header class="gb-page-header">
+        <div class="container">
+            <a href="{{ site.baseurl }}/" class="logo">
+                <img src="{{ "images/logo/128.png"|resolveAsset }}">
+                <h1>{{ config.title }}</h1>
+            </a>
+
+            {% if glossary.length > 0 %}
+            <a href="{{ ('/' + glossary.path)|resolveFile }}" class="btn btn-link pull-right hidden-xs">Glossary</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="gb-page-body">
+        <div class="gb-page-inner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        {% include "website/sidenav.html" %}
+                    </div>
+                    <div class="col-md-9">
+                        <div class="gb-markdown">
+                            {{ page.content|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="gb-page-footer">
+        <div class="container">
+            <ul class="menu">
+                <li class="pull-right">
+                    <span class="service-info">Copyright GitBook {{ gitbook.time }}</span>
+                </li>
+                <li>
+                    <a href="#">Return to the top</a>
+                </li>
+                <li>
+                    <a href="#">Updated {{ file.time }}</a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+</div>
+{% endblock %}
