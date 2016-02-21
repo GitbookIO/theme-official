@@ -39,6 +39,17 @@
             {% if glossary.length > 0 %}
             <a href="{{ ('/' + glossary.path)|resolveFile }}" class="btn btn-link pull-right hidden-xs">Glossary</a>
             {% endif %}
+
+            {% if page.next and page.next.path %}
+            <a href="{{ page.next.path|resolveFile }}" class="btn btn-link pull-right hidden-xs">
+                <i class="octicon octicon-chevron-right"></i>
+            </a>
+            {% endif %}
+            {% if page.previous and page.previous.path %}
+            <a href="{{ page.previous.path|resolveFile }}" class="btn btn-link pull-right hidden-xs">
+                <i class="octicon octicon-chevron-left"></i>
+            </a>
+            {% endif %}
         </div>
     </header>
 
@@ -50,9 +61,11 @@
                         {% include "website/sidenav.html" %}
                     </div>
                     <div class="col-md-9">
+                        {% block page %}
                         <div class="gb-markdown book-page-inner">
                             {{ page.content|safe }}
                         </div>
+                        {% endblock %}
                     </div>
                 </div>
             </div>
@@ -63,13 +76,13 @@
         <div class="container">
             <ul class="menu">
                 <li class="pull-right">
-                    <span class="service-info">Copyright GitBook {{ gitbook.time }}</span>
+                    <span class="service-info">Copyright GitBook {{ gitbook.time|date('YYYY') }}</span>
                 </li>
                 <li>
                     <a href="#">Return to the top</a>
                 </li>
                 <li>
-                    <a href="#">Updated {{ file.time }}</a>
+                    <a href="#">Updated {{ file.mtime|date('MMM Do YY') }}</a>
                 </li>
             </ul>
         </div>
