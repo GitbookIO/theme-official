@@ -1,7 +1,7 @@
 {% macro articles(_articles) %}
     {% for article in _articles %}
         {% if article.path %}
-        <a href="{{ article.path|resolveFile }}" class="list-group-item {% if article.path == file.path %}active{% endif %}">{{ article.title }}</a>
+        <a href="{{ article.path|resolveFile }}{{ article.anchor }}" class="list-group-item {% if article.path == file.path and not article.anchor %}active{% endif %}">{{ article.title }}</a>
         {% else %}
         <a href="{{ article.url }}" target="_blank" class="list-group-item">{{ article.title }}</a>
         {% endif %}
