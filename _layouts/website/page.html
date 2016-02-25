@@ -31,6 +31,7 @@
 <div class="gb-page-wrapper">
     <header class="gb-page-header">
         <div class="container">
+        {% block header %}
             <a href="{{ site.baseurl }}/" class="logo">
                 <img src="{{ "images/logo/128.png"|resolveAsset }}">
                 <h1>{{ config.title }}</h1>
@@ -40,16 +41,19 @@
             <a href="{{ ('/' + glossary.path)|resolveFile }}" class="btn btn-link pull-right hidden-xs">Glossary</a>
             {% endif %}
 
-            {% if page.next and page.next.path %}
-            <a href="{{ page.next.path|resolveFile }}" class="btn btn-link pull-right hidden-xs">
-                <i class="octicon octicon-chevron-right"></i>
-            </a>
-            {% endif %}
-            {% if page.previous and page.previous.path %}
-            <a href="{{ page.previous.path|resolveFile }}" class="btn btn-link pull-right hidden-xs">
-                <i class="octicon octicon-chevron-left"></i>
-            </a>
-            {% endif %}
+            {% block header_nav %}
+                {% if page.next and page.next.path %}
+                <a href="{{ page.next.path|resolveFile }}" class="btn btn-link pull-right hidden-xs">
+                    <i class="octicon octicon-chevron-right"></i>
+                </a>
+                {% endif %}
+                {% if page.previous and page.previous.path %}
+                <a href="{{ page.previous.path|resolveFile }}" class="btn btn-link pull-right hidden-xs">
+                    <i class="octicon octicon-chevron-left"></i>
+                </a>
+                {% endif %}
+            {% endblock %}
+        {% endblock %}
         </div>
     </header>
 
