@@ -1,6 +1,7 @@
 {% extends "website/layout.html" %}
 
 {% block title %}{{ page.title }} · {{ super() }}{% endblock %}
+{% block description %}{{ page.description }}{% endblock %}
 
 {% block head %}
     {{ super() }}
