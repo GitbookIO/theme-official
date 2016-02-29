@@ -1,12 +1,19 @@
 {% macro articles(_articles) %}
     {% for article in _articles %}
         {% if article.path %}
-        <a href="{{ article.path|resolveFile }}{{ article.anchor }}" class="list-group-item {% if article.path == file.path and not article.anchor %}active{% endif %}">{{ article.title }}</a>
-        {% else %}
-        <a href="{{ article.url }}" target="_blank" class="list-group-item">{{ article.title }}</a>
+        <a href="{{ article.path|resolveFile }}{{ article.anchor }}" class="list-group-item {% if article.path == file.path and not article.anchor %}active{% endif %}">
+        {% elif article.url %}
+        <a href="{{ article.url }}" target="_blank" class="list-group-item">
+        {% endif %}
+            {% for i in range(0, article.depth - 2) %}
+                <i class="octicon octicon-chevron-right"></i>
+            {% endfor %}
+            {{ article.title }}
+        {% if article.path or article.url %}
+        </a>
         {% endif %}
 
-        {% if article.articles.length > 0 %}
+        {% if article.articles.length > 0 and page.level.indexOf(article.level) == 0 %}
         {{ articles(article.articles) }}
         {% endif %}
     {% endfor %}
