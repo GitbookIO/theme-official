@@ -4,6 +4,8 @@
         <a href="{{ article.path|resolveFile }}{{ article.anchor }}" class="list-group-item {% if article.path == file.path and not article.anchor %}active{% endif %}">
         {% elif article.url %}
         <a href="{{ article.url }}" target="_blank" class="list-group-item">
+        {% else %}
+        <span class="list-group-item">
         {% endif %}
             {% for i in range(0, article.depth - 2) %}
                 <i class="octicon octicon-chevron-right"></i>
@@ -11,6 +13,8 @@
             {{ article.title }}
         {% if article.path or article.url %}
         </a>
+        {% else %}
+        </span>
         {% endif %}
 
         {% if article.articles.length > 0 and page.level.indexOf(article.level) == 0 %}
