@@ -33,6 +33,8 @@
     <header class="gb-page-header">
         <div class="container">
         {% block header %}
+            {% block search_input %}{% endblock %}
+
             <a href="{{ site.baseurl }}/" class="logo">
                 <img src="{{ "images/logo/128.png"|resolveAsset }}">
                 <h1>{{ config.title }}</h1>
@@ -66,10 +68,12 @@
                         {% include "website/sidenav.html" %}
                     </div>
                     <div class="col-md-9">
-                        {% block page %}
-                        <div class="gb-markdown book-page-inner">
-                            {{ page.content|safe }}
-                        </div>
+                        {% block search_results %}
+                            {% block page %}
+                            <div class="gb-markdown book-page-inner">
+                                {{ page.content|safe }}
+                            </div>
+                            {% endblock %}
                         {% endblock %}
                     </div>
                 </div>
@@ -93,4 +97,24 @@
         </div>
     </footer>
 </div>
+
+<script src="{{ "gitbook.js"|resolveAsset }}"></script>
+{% for resource in plugins.resources.js %}
+    {% if resource.url %}
+    <script src="{{ resource.url }}"></script>
+    {% else %}
+    <script src="{{ resource.path|resolveAsset }}"></script>
+    {% endif %}
+{% endfor %}
+<script>
+(function() {
+    gitbook.page.hasChanged({
+        basePath: "{{ './'|resolveFile }}",
+        page: {{ page|dump|safe }},
+        file: {{ file|dump|safe }},
+        gitbook: {{ gitbook|dump|safe }},
+        config: {{ config|dump|safe }},
+    })
+})();
+</script>
 {% endblock %}
