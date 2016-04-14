@@ -35,7 +35,7 @@
         {% block header %}
             {% block search_input %}{% endblock %}
 
-            <a href="{{ site.baseurl }}/" class="logo">
+            <a href="{{ "/"|resolveFile }}" class="logo">
                 <img src="{{ "images/logo/128.png"|resolveAsset }}">
                 <h1>{{ config.title }}</h1>
             </a>
