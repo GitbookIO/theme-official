@@ -1,23 +1,25 @@
-<!DOCTYPE HTML>
-<html lang="{{ config.language }}" {% if page.dir == "rtl" %}dir="rtl"{% endif %}>
-    <head>
-        <title>{% block title %}{{ config.title|d("GitBook", true) }}{% endblock %}</title>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="{% block description %}{{ config.description }}{% endblock %}">
-        <meta name="generator" content="GitBook {{ gitbook.version }}">
-        {% if config.author %}<meta name="author" content="{{ config.author }}">{% endif %}
-        {% if config.isbn %}<meta name="identifier" content="{{ config.isbn }}" scheme="ISBN">{% endif %}
-        <meta name="HandheldFriendly" content="true"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <link rel="shortcut icon" href="{{ "images/logo/favicon.ico"|resolveAsset }}" type="image/x-icon">
-        {% block style %}{% endblock %}
-        {% block head %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
-</html>
+{% extends "layout.html" %}
+
+{% block head %}
+    {{ super() }}
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ "images/apple-touch-icon-precomposed-152.png"|resolveAsset }}">
+    <link rel="shortcut icon" href="{{ "images/favicon.ico"|resolveAsset }}" type="image/x-icon">
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ "style.css"|resolveAsset }}">
+    {% for resource in plugins.resources.css %}
+        {% if resource.url %}
+        <link rel="stylesheet" href="{{ resource.url }}">
+        {% else %}
+        <link rel="stylesheet" href="{{ resource.path|resolveAsset }}">
+        {% endif %}
+    {% endfor %}
+    {% for type, style in styles %}
+        <link rel="stylesheet" href="{{ style|resolveFile }}">
+    {% endfor %}
+{% endblock %}
