@@ -1,7 +1,7 @@
 {
     "name": "gitbook-plugin-theme-official",
     "description": "Official theme for GitBook.com documentations",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "engines": {
         "gitbook": ">=3.0.0-pre.8"
     },
